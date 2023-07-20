@@ -1,4 +1,3 @@
-
 // hiding nav_bar on scroll_down
 
 window.addEventListener('wheel', (event) =>
@@ -15,6 +14,26 @@ window.addEventListener('wheel', (event) =>
         //console.log('Scroll up');
         document.querySelector('header').classList.remove('header_adder');
       }
+    }
+  })
+
+window.addEventListener('touchstart', () =>
+  {
+    if(window.pageYOffset >= 73)
+    {
+      let start = window.pageYOffset;
+      window.addEventListener('touchend', () =>
+      {
+        let end = window.pageYOffset;
+        if(start < end)
+        {
+          document.querySelector('header').classList.add('header_adder');
+        }
+        else
+        {
+          document.querySelector('header').classList.remove('header_adder');
+        }
+      })
     }
   })
 
@@ -51,23 +70,28 @@ window.addEventListener('wheel', (event) =>
     let mobile_menu_links = document.querySelectorAll('.hidden1');
     mobile_menu_links.forEach(link =>
       {
-        link.addEventListener('click', () =>
-        {
-          menu_links.forEach(btn =>
-            {
-              if(btn === link)
-              {
-                btn.classList.add('on_action');
-              }
-              else
-              {
-                btn.classList.remove('on_action');
-              }
-            })
+          link.addEventListener('click', () =>
+          {
+        //   menu_links.forEach(btn =>
+        //     {
+        //       if(btn === link)
+        //       {
+        //         btn.classList.add('on_action');
+        //       }
+        //       else
+        //       {
+        //         btn.classList.remove('on_action');
+        //       }
+        //     })
           document.querySelector('header').classList.add('header_adder');
-        })
-      })
+          });
+      });
 
+      // window.addEventListener('touchstart', () =>
+      // {
+      //   document.querySelector('header').classList.remove('header_adder');
+      // });
+        
       document.querySelector('.home_para').addEventListener('click', (e) =>
       {
         e.preventDefault();
@@ -78,6 +102,55 @@ window.addEventListener('wheel', (event) =>
 // automatic color change in menu_bar
 
 document.querySelector('html').addEventListener('wheel', () =>
+{
+  let about_section = document.querySelector('.about_section');
+  let roadmap_section = document.querySelector('.roadmap_section');
+  let courses_section = document.querySelector('.courses_section');
+  let contact_section = document.querySelector('.contact_section');
+
+  let home_btn = document.querySelector('.home_btn');
+  let about_btn = document.querySelector('.about_btn');
+  let roadmap_btn = document.querySelector('.roadmap_btn');
+  let courses_btn = document.querySelector('.courses_btn');
+  let contact_btn = document.querySelector('.contact_btn');
+
+  function remove_color()
+  {
+    menu_links.forEach(link =>
+      {
+        link.classList.remove('on_action');
+      })
+    document.querySelector('.home_btn').classList.remove('on_action');
+  }
+
+  if(window.pageYOffset >= 0 && window.pageYOffset < 0.8*about_section.offsetTop)
+  {
+    remove_color();
+    home_btn.classList.add('on_action');
+  } 
+  else if(window.pageYOffset >= 0.8*about_section.offsetTop && window.pageYOffset < 0.8*roadmap_section.offsetTop)
+  {
+    remove_color();
+    about_btn.classList.add('on_action');
+  }
+  else if(window.pageYOffset >= 0.8*roadmap_section.offsetTop && window.pageYOffset < 0.8*courses_section.offsetTop)
+  {
+    remove_color();
+    roadmap_btn.classList.add('on_action');
+  }
+  else if(window.pageYOffset >= 0.8*courses_section.offsetTop && window.pageYOffset < 0.8*contact_section.offsetTop)
+  {
+    remove_color();
+    courses_btn.classList.add('on_action');
+  }
+  else if(window.pageYOffset >= 0.8*contact_section.offsetTop)
+  {
+    remove_color();
+    contact_btn.classList.add('on_action');
+  }
+});
+
+document.querySelector('html').addEventListener('touchmove', () =>
 {
   let about_section = document.querySelector('.about_section');
   let roadmap_section = document.querySelector('.roadmap_section');
@@ -176,6 +249,3 @@ const observer1 = new IntersectionObserver(entries =>
         document.querySelector('.close').style["pointer-events"] = 'none';
       })
     })
-
-
-  
